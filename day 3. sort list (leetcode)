@@ -1,0 +1,44 @@
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        if(head==NULL or head->next==NULL){return head;} 
+        
+        ListNode*mid=midpoint(head);
+        ListNode*x=head;
+        ListNode*y=mid->next;
+        mid->next=NULL; 
+        
+        x=sortList(x);
+        y=sortList(y);
+        return merge(x,y);
+        
+    }
+    ListNode*midpoint(ListNode*head){
+        if(head==NULL or head->next==NULL){
+            return head;
+        }
+        ListNode*fast=head->next;
+        ListNode*slow=head;
+        while(fast!=NULL and fast->next!=NULL){
+            fast=fast->next->next;
+            slow=slow->next;
+        }
+        return slow;
+    }
+    ListNode*merge(ListNode*a,ListNode*b){
+        if(a==NULL){
+            return b;}
+        if(b==NULL){return a;}
+        
+        ListNode*c;
+        if(a->val>b->val){
+            c=b;
+            c->next=merge(a,b->next);
+        }
+        else{
+            c=a;
+            c->next=merge(a->next,b);
+        }
+        return c;
+    }
+};
