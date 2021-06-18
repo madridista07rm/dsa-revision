@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<int> getAllElements(TreeNode* root1, TreeNode* root2) {
+        vector<int>v;
+        getele(root1,v);
+        getele(root2,v);
+        sort(v.begin(),v.end());
+        return v;
+    }
+    void getele(TreeNode* root,vector<int>&v){
+        if(root==NULL){
+            return;
+        }
+        v.push_back(root->val);
+        getele(root->left,v);
+        getele(root->right,v);
+    }
+};
